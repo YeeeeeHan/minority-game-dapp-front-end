@@ -1,38 +1,141 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Overview
+- Project description
+- Project Demo
 
-## Getting Started
-
-First, run the development server:
-
+## Project Set-Up
+Install dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+# Backend deps
+npm install
+
+# Frontend deps
+cd frontend && npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Development
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Truffle
+```bash
+# Create truffle-config.js
+truffle init
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+# Compile contracts
+truffle compile
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# Open up truffle console
+truffle develop
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# ==== Within truffle console: ====
 
-## Learn More
+# Run unit tests
+truffle test
 
-To learn more about Next.js, take a look at the following resources:
+# Deploy contract to local blockchain
+migrate --reset
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Deploy contract to public testnet
+migrate --reset --network goerli
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Hardhat
+```bash
+npx hardhat compile
 
-## Deploy on Vercel
+# Run test
+npx hardhat test
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Deploy to local development node
+npx hardhat node
+npx hardhat run scripts/deploy.js --network localhost
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Testing in console
+npx hardhat console --network localhost
+> const Box = await ethers.getContractFactory('Box');
+> const box = await Box.attach('0x5FbDB2315678afecb367f032d93F642f64180aa3')
+undefined
+> await box.store(42)
+> await box.retrieve()
+
+# Deploy to goerli 
+npx hardhat run scripts/deploy.js --network goerli // Remember to update .env file to include the deployed contract address
+```
+
+## Project deployment
+```bash
+$ heroku login
+
+# create the app
+$ heroku create <name-of-app>
+
+# sign into Container Registry
+heroku container:login
+
+# tweak this default setting on Heroku through the NODE_OPTIONS env var so that the process can address all of the memory available
+heroku config:set NODE_OPTIONS="--max_old_space_size=2560" -a <name-of-app>
+
+# Push changes
+ git push heroku master
+```
+
+## Updating packages:
+```bash
+npm i -g npm-check-updates
+
+# Only update the versions in package.json to the latest version
+ncu -u
+
+# Update packages in /node_modules to the latest version
+npm update
+
+```
+
+## Postman templates:
+```bash
+
+```
+
+## Project Structure
+```bash
+.
+|-- backend
+|   |-- config
+|   |   `-- db.js    (Connecting to database)
+|   |-- controllers    (Logic to interact with database)
+|   |-- middleware    (Functions that are run on routes)
+|   |-- models    (Schema information)
+|   |-- postman     (Postman-related files)
+|   |-- routes      (Endpoints)
+|   `-- server.js    (Express server config)
+|-- frontend
+|   |-- README.md
+|   |-- public
+|   `-- src
+|       |-- App.js
+|       |-- app
+|       |   `-- store.js     (Redux Store)
+|       |-- components     (React components)
+|       |-- features     (Feature containing: service[axios requests], slice[redux specifications])
+|       |-- index.js
+|       |-- pages     (React pages)
+|-- readme.md
+`-- solidity
+    |-- artifacts           (ABIs)
+    |-- cache
+    |-- contracts           (smart contracts)
+    |   `-- Box.sol 
+    |-- hardhat.config.js
+    |-- package-lock.json
+    |-- package.json
+    |-- scripts
+    |   `-- deploy.js      (Deploy script)
+    `-- test               (Test scripts)
+        `-- Box.test.js
+```
+
+## Template information
+- book: frontend > service > backend | No Authentication
+- goals: frontend > dispatch(slice) > service > backend | Contains authentication
+- user: Authentication and authorisation
