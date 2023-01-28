@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 // import Homepage from "./pages/Homepage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-// import Admin from "./pages/Admin";
 
 import { Web3ReactProvider } from "@web3-react/core";
 import { MetamaskProvider } from "@/providers/metamask";

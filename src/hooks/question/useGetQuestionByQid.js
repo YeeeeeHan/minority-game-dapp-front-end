@@ -19,8 +19,8 @@ export default function UseGetQuestionByQid(id, setQuestion) {
     onSuccess: (data) => {
       setQuestion(data)
     },
-    onError: () => {
-      console.log('ERORRRRRRRRRRRRR')
+    onError: (error) => {
+      console.log(`ERORRRRRRRRRRRRR: ${error}`)
     },
     enabled: !!id,
   })

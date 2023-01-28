@@ -16,6 +16,7 @@ import UseGetVotesByQid from '../hooks/vote/useGetVotesByQid'
 import UseGetQuestionByQid from '../hooks/question/useGetQuestionByQid'
 import { alchemyGameContract } from '@/ethers'
 import { UsePostUpdateResult } from '@/hooks/question/useUpdateQuestionResult'
+import styles from "../styles/Homepage.module.css"
 
 function Admin() {
   const [questionDetails, setQuestionDetails] = useState({})
@@ -59,6 +60,7 @@ function Admin() {
       return
     }
     setMessage('Waiting on reveal transaction...')
+
     console.log('@@@@@@@@@@ data.votes', data.votes)
     const voteArray = data.votes.map((elem) => {
       return [elem.address, elem.option, elem.unix, elem.salt]
@@ -106,13 +108,13 @@ function Admin() {
 
   return (
     <div>
-      <div className="App">
-        <div className="logo-date">
-          <h1 className="logo">admin</h1>
-          <h1 className="dot">&#8226; </h1>
+      <div className="app">
+        <div className={styles.logoDate}>
+          <h1 className={styles.logo}>admin</h1>
+          <h1 className={styles.dot}>&#8226; </h1>
           <Clock />
         </div>
-        <div className="main-container">
+        <div>
           <div> Submit new question </div>
           <form>
             <input
