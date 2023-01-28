@@ -69,13 +69,22 @@ export function MetamaskProvider({ children }) {
 
   useEffect(() => {
     (async () => {
-      // Whenever accounts or chain is changed
+      // Whenever accounts is changed
       if (window.ethereum) {
         console.log("#### window.ethereum");
         window.ethereum.on("accountsChanged", async function (accounts) {
           console.log("accountsChanged", connector, activate, library, active);
           toast.info(`Switched to ${accounts}`);
         });
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      // Whenever chainChanged
+      if (window.ethereum) {
+        console.log("#### window.ethereum");
         window.ethereum.on("chainChanged", async function () {
           console.log("chainChanged", connector, activate, library, active);
           if (connector) {
