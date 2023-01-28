@@ -60,7 +60,9 @@ export function MetamaskProvider({ children }) {
         mmSigner
       );
       setMmGameContract(mmGameContract);
-      console.log("MMSIGNER SET in metasmask.js");
+      console.log("MMSIGNER SET in metasmask.js[mmSigner]", mmSigner);
+      console.log("MMSIGNER SET in metasmask.js[connector]", connector);
+      console.log("MMSIGNER SET in metasmask.js[library]", library);
       setMmSigner(mmSigner);
     })();
   }, [library, active]);
@@ -82,7 +84,7 @@ export function MetamaskProvider({ children }) {
         });
       }
     })();
-  }, []);
+  });
 
   return children;
 }
