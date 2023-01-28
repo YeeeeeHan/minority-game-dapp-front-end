@@ -1,0 +1,39 @@
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logoDate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  font-size: calc(50px + 2vmin);
+  font-weight: 800;
+  width: auto;
+}
+.dot {
+  font-size: calc(20px + 2vmin);
+  margin: 50px 20px 0px 20px;
+}
+
+.history {
+  font-size: calc(30px + 2vmin);
+  font-weight: bold;
+  margin-bottom: 5vh;
+}
+
+.instructions {
+  font-family: Helvetica Neue, Helvetica, Arial, Sans-Serif;
+  font-size: calc(10px + 2vmin);
+  line-height: 130%;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

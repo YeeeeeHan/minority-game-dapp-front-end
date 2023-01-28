@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "../styles/Option.module.css"
+import styles from "../styles/Question.module.css"
 
 function Option({ submitVote, optionTitle, value }) {
   // Handling voting function
@@ -17,7 +17,7 @@ function Option({ submitVote, optionTitle, value }) {
   return (
     <div>
       <h3
-        className={styles.dailyOption}
+        className={styles.option}
         onClick={(e) => {
           handleClick(e);
         }}
