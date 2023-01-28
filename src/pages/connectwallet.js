@@ -32,7 +32,7 @@ const ConnectWallet = () => {
         <div>
           <h3 className="h4">Wallet connected!</h3>
           <Button variant="outlined">
-            <img className="" src={require("./mm.png")} width="50" />
+            <img className="" src={require("../assets/mm.png")} width="50" />
             {account}
           </Button>
         </div>
@@ -40,7 +40,7 @@ const ConnectWallet = () => {
         <div>
           <h3 className="h4">Connect a wallet</h3>
           <Button variant="outlined" onClick={connect}>
-            <img src={require("./mm.png")} width="50" />
+            <img className="" src={require("../assets/mm.png")} width="50" />
             Connect
           </Button>
         </div>
