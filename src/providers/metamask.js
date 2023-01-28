@@ -16,7 +16,7 @@ export async function ConnectToMetamask(activate) {
   try {
     await activate(injected)
   } catch (error) {
-    toast.error(error)
+    toast.error(`Error: ${error}`)
   }
 }
 
@@ -25,6 +25,7 @@ export async function CheckConnector(c) {
   console.log('CheckConnector', chainId)
 
   if (chainId !== '0x5') {
+    console.log('HERERER')
     toast.error('Please set metamask network to Goerli')
   } else {
     toast.success('Successfully switched metamask network to Goerli')
@@ -68,6 +69,7 @@ export function MetamaskProvider({ children }) {
     ;(async () => {
       // Whenever accounts or chain is changed
       if (window.ethereum) {
+        console.log("#### window.ethereum")
         window.ethereum.on('accountsChanged', async function (accounts) {
           toast.info(`Switched to ${accounts}`)
         })

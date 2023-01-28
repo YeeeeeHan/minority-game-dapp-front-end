@@ -12,65 +12,62 @@ function IndividualHistoricalQuestion({ question, color }) {
   }
 
   useEffect(() => {
-    console.log(color);
     setColorChoice(color);
   }, []);
 
   return (
-    <div
-      className={`${styles.dailyContainer} ${styles[colorChoice]}`}
-    >
-      <h1>
-        <div className={styles.dailyQuestion}>
+      <div className={`${styles.dailyContainer} ${styles[colorChoice]}`}>
+        <h1>
           <div className={styles.question}>{question.question}</div>
+        </h1>
+        <div className={styles.dailyOption}>
+          <div>
+            <h3
+              className={`${styles.option} noselect`}
+              onClick={(e) => {
+                handleClick(e);
+              }}
+            >
+              {question.option0}
+            </h3>
+            {clickedReveal ? (
+              <div className={styles.revealResult}>
+                <div>{question.result}%</div>
+              </div>
+            ) : (
+              <div />
+            )}
+          </div>
+          <div>
+            <h3
+              className={`${styles.option} noselect`}
+              onClick={(e) => {
+                handleClick(e);
+              }}
+            >
+              {question.option1}
+            </h3>
+            {clickedReveal ? (
+              <div className={styles.revealResult}>
+                <div>{100 - question.result}%</div>
+              </div>
+            ) : (
+              <div />
+            )}
+          </div>
         </div>
-      </h1>
-      <div className={styles.dailyOption}>
-        <div>
-          <h3
-            className={`${styles.option} noselect`}
-            onClick={(e) => {
-              handleClick(e);
-            }}
-          >
-            {question.option0}
-          </h3>
-          {clickedReveal ? (
-            <div className={styles.revealResult}>
-              <div>{question.result}%</div>
-            </div>
-          ) : (
-            <div />
-          )}
-        </div>
-        <div>
-          <h3
-            className={`${styles.option} noselect`}
-            onClick={(e) => {
-              handleClick(e);
-            }}
-          >
-            {question.option1}
-          </h3>
-          {clickedReveal ? (
-            <div className={styles.revealResult}>
-              <div>{100 - question.result}%</div>
-            </div>
-          ) : (
-            <div />
-          )}
-        </div>
+        {clickedReveal ? (
+          <div />
+        ) : (
+          <div className={styles.subtext}>
+            Vote to reveal how you would have fared
+          </div>
+        )}
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
-      {clickedReveal ? (
-        <div />
-      ) : (
-        <div>Vote to reveal how you would have fared</div>
-      )}
-      <br />
-      <br />
-      <br />
-      <br />
-    </div>
   );
 }
 

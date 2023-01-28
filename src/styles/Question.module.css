@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   color: white;
+  text-align: center;
   margin: 0vh 0vh 10vh 0vh;
 }
 .questionOption {
@@ -99,20 +100,17 @@
   align-items: center;
 }
 
-.dailyQuestion {
+.question {
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-wrap: break-word;
   line-height: 1;
-}
-
-.question {
   font-size: 3rem;
   max-width: 70vw;
 }
 
-.totalParticipants {
+.subtext {
   font-size: 2rem;
   margin: 5px;
   color: rgb(204, 204, 204);

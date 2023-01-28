@@ -26,9 +26,9 @@ function getLibrary(provider) {
 }
 
 const App = ({ Component, pageProps }) => {
-  const [mmSigner, setMmSigner] = useAtom(mmSignerAtom);
-  const [adminAddr, setAdminAddr] = useState();
-
+  // const [mmSigner, setMmSigner] = useAtom(mmSignerAtom);
+  // const [adminAddr, setAdminAddr] = useState();
+  //
   // useEffect(async () => {
   //   if (mmSigner === undefined) {
   //     return;
@@ -46,18 +46,20 @@ const App = ({ Component, pageProps }) => {
   });
 
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <MetamaskProvider>
-        <QueryClientProvider client={queryClient}>
-          <Header />
-          <Component {...pageProps} />)
-        </QueryClientProvider>
-      </MetamaskProvider>
-    </Web3ReactProvider>
+    <>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <MetamaskProvider>
+          <QueryClientProvider client={queryClient}>
+            <Header />
+            <Component {...pageProps} />)
+          </QueryClientProvider>
+        </MetamaskProvider>
+      </Web3ReactProvider>
+      <ToastContainer />
+    </>
   );
-}
+};
 
 export default dynamic(() => Promise.resolve(App), {
   ssr: false,
 });
-

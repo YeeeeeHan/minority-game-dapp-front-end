@@ -96,13 +96,18 @@ function Homepage() {
   // Try Catch is used to check if the transaction is successful
   const submitVote = async (option) => {
     try {
+      console.log("@@@@@@ 1 @@@@@");
       // Retrieving user address
       console.log(mmSigner);
+      console.log("@@@@@@ 2 @@@@@");
       const voterAddr = await mmSigner.getAddress();
+      console.log("@@@@@@ 3 @@@@@");
 
       setMessage(messageConstants.WAITING_TRANSACTION);
+      console.log("@@@@@@ 4 @@@@@");
 
       const unix = Math.floor(Date.now() / 1000);
+      console.log("@@@@@@ 5 @@@@@");
 
       // Send vote to DB
       await mutateCastVote({
@@ -112,6 +117,7 @@ function Homepage() {
         unix: unix,
         salt: "salt",
       });
+      console.log("@@@@@@ 5 @@@@@");
       const voteHash = await mmGameContract.hasher(
         voterAddr,
         option,
@@ -121,7 +127,7 @@ function Homepage() {
       // Send vote to Ethereum
       await mutateCreateVote({ voteHash, mmGameContract });
     } catch (error) {
-      toast.error(error);
+      toast.error(`Error: ${error}`);
     }
   };
 
@@ -132,7 +138,7 @@ function Homepage() {
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
   }
   return (
-    <div className={styles.app}>
+    <div className="app">
       <div className={styles.logoDate}>
         <h1 className={styles.logo}>limmy</h1>
         <h1 className={styles.dot}>&#8226; </h1>
