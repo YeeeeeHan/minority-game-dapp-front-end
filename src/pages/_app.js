@@ -14,7 +14,6 @@ import { Web3Provider } from "@ethersproject/providers";
 import { useEffect, useState } from "react";
 // import PrivateRoutes from "./pages/PrivateRoutes";
 import { useAtom } from "jotai";
-import { mmSignerAtom } from "@/store/store";
 import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 

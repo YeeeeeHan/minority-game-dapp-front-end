@@ -4,7 +4,7 @@ import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { toast } from "react-toastify";
 import { useAtom } from "jotai";
-import { mmGameContractAtom, mmSignerAtom } from "@/store/store";
+import { mmGameContractAtom } from "@/store/store";
 import contract from "../contracts/MinorityGame.json";
 import { ethers } from "ethers";
 
@@ -14,6 +14,8 @@ export const injected = new InjectedConnector({
 
 export async function ConnectToMetamask(activate) {
   try {
+    // If injected.isAuthorized() == true, populates the web3React hook
+    // If injected.isAuthorized() == false, triggers the metamask approval pop up
     await activate(injected);
   } catch (error) {
     toast.error(`Error: ${error}`);
@@ -32,14 +34,13 @@ export async function CheckConnector(c) {
   }
 }
 
-// If authorised, automatically log in
 export function MetamaskProvider({ children }) {
   const { connector, activate, library, error, active } = useWeb3React();
-  const [mmSigner, setMmSigner] = useAtom(mmSignerAtom);
   const [mmGameContract, setMmGameContract] = useAtom(mmGameContractAtom);
 
   useEffect(() => {
     (async () => {
+      // injected.isAuthorized() will be true if the user has approved the dapp w metamask
       if (await injected.isAuthorized()) {
         await ConnectToMetamask(activate);
       }
@@ -53,17 +54,12 @@ export function MetamaskProvider({ children }) {
       if (library === undefined) {
         return;
       }
-      const mmSigner = await library.getSigner();
       const mmGameContract = await new ethers.Contract(
         process.env.NEXT_PUBLIC_GAME_CONTRACT,
         contract.abi,
-        mmSigner
+        library.getSigner()
       );
       setMmGameContract(mmGameContract);
-      console.log("MMSIGNER SET in metasmask.js[mmSigner]", mmSigner);
-      console.log("MMSIGNER SET in metasmask.js[connector]", connector);
-      console.log("MMSIGNER SET in metasmask.js[library]", library);
-      setMmSigner(mmSigner);
     })();
   }, [library, active]);
 

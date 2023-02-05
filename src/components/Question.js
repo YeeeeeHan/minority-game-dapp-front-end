@@ -8,7 +8,13 @@ function Question({ participants, content }) {
         Number of votes casted: {participants}
       </div>
       <div className={styles.subtext}>
-        Prize pool: {participants * process.env.NEXT_PUBLIC_TICKET_PRICE_GWEI * 0.000000001} Eth
+        Prize pool:{" "}
+        {(
+          participants *
+          process.env.NEXT_PUBLIC_TICKET_PRICE_GWEI *
+          0.000000001
+        ).toFixed(2)}{" "}
+        Eth
       </div>
     </div>
   );

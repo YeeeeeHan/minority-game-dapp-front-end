@@ -5,8 +5,7 @@ import { CheckConnector, ConnectToMetamask } from "@/providers/metamask";
 import Button from "@mui/material/Button";
 
 const ConnectWallet = () => {
-  const { active, account, library, connector, activate, deactivate, error } =
-    useWeb3React();
+  const { active, account, activate } = useWeb3React();
 
   // Login on click
   async function connect() {
@@ -32,7 +31,7 @@ const ConnectWallet = () => {
         <div>
           <h3 className="h4">Wallet connected!</h3>
           <Button variant="outlined">
-            <img className="" src={require("../assets/mm.png")} width="50" />
+            {/*<img className="" src={require("../assets/mm.png")} width="50" />*/}
             {account}
           </Button>
         </div>
@@ -40,7 +39,7 @@ const ConnectWallet = () => {
         <div>
           <h3 className="h4">Connect a wallet</h3>
           <Button variant="outlined" onClick={connect}>
-            <img className="" src={require("../assets/mm.png")} width="50" />
+            {/*<img className="" src={require("../assets/mm.png")} width="50" />*/}
             Connect
           </Button>
         </div>

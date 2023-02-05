@@ -9,7 +9,7 @@ function Header() {
   const { active } = useWeb3React();
 
   return (
-    <nav className="header">
+    <nav>
       <div className="logo">
         <Link href="/">
           <Button color={"inherit"}>

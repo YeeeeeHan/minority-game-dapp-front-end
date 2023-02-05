@@ -6,16 +6,18 @@ import useCastVote from "../hooks/vote/useCastVote";
 import useContractCreateVote from "../hooks/ethereum/useContractCreateVote";
 import { messageConstants } from "@/constants/constants";
 import { useAtom } from "jotai";
-import { mmGameContractAtom, mmSignerAtom } from "@/store/store";
+import { mmGameContractAtom } from "@/store/store";
 import { toast } from "react-toastify";
 import UseGetInfiniteQuestion, {
   getQuestionsByPage,
 } from "../hooks/question/useGetInfiniteQuestion";
 import IndividualHistoricalQuestion from "../components/IndividualHistoricalQuestion";
 import styles from "../styles/Homepage.module.css";
+import Router from "next/router";
+import { useWeb3React } from "@web3-react/core";
 
 function Homepage() {
-  const [mmSigner] = useAtom(mmSignerAtom);
+  const { library, active } = useWeb3React();
   const [mmGameContract] = useAtom(mmGameContractAtom);
 
   const dateOptions = { day: "numeric", month: "numeric", year: "numeric" };
@@ -95,12 +97,18 @@ function Homepage() {
   // by hashing the address, the option and the salt which is fetched from DB.
   // Try Catch is used to check if the transaction is successful
   const submitVote = async (option) => {
+    if (!active) {
+      await Router.push("/connectwallet");
+      toast.info("Please connect a wallet before voting");
+      return;
+    }
+
     try {
       console.log("@@@@@@ 1 @@@@@");
       // Retrieving user address
-      console.log(mmSigner);
+      console.log(library.getSigner());
       console.log("@@@@@@ 2 @@@@@");
-      const voterAddr = await mmSigner.getAddress();
+      const voterAddr = await library.getSigner().getAddress();
       console.log("@@@@@@ 3 @@@@@");
 
       setMessage(messageConstants.WAITING_TRANSACTION);
@@ -135,17 +143,17 @@ function Homepage() {
   function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is pexclusive and the minimum is inclusive
   }
   return (
     <div className="app">
       <div className={styles.logoDate}>
-        <h1 className={styles.logo}>limmy</h1>
+        <h1 className={styles.logo}>Minority Game</h1>
         <h1 className={styles.dot}>&#8226; </h1>
         <Clock />
       </div>
       <div className={styles.instructions}>
-        <div>new questions every sunday</div>
+        <div>It's time to avoid the crowd</div>
       </div>
       <QuestionCard
         qid={qid}
